@@ -1,17 +1,17 @@
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/login/Login.jsx";
-import Display from "./components/display/Display.jsx";
+import Nav from "./components/nav/Nav.jsx";
+import About from "./components/about/About.jsx";
 function App() {
   return (
-    <>
-      <h2 className="mb-4 text-5xl capitalize">
-        implement useForm, yup and redux
-      </h2>
-      <div className="flex gap-x-7">
-        <Login />
-        <Display />
-      </div>
-    </>
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
