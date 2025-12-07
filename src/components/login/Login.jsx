@@ -2,8 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { setLoginDetails } from "./loginslice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const schema = yup.object({
     username: yup.string().required("username is required"),
     email: yup.string().email("email is invalid").required("email is required"),
@@ -17,10 +20,17 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  const onSubmit = (data) =>
+    dispatch(
+      setLoginDetails({
+        userName: data.username,
+        email: data.email,
+        password: data.password,
+      })
+    );
   return (
     <div className="p-10 bg-gray-200 rounded-lg max-w-md mx-auto mt-20">
-      <h1 className="mb-4">Login</h1>
+      <h2 className="mb-4 text-3xl">Login</h2>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col justify-start items-start gap-4">
           <div className="flex flex-col items-start">
